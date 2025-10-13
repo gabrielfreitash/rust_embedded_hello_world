@@ -4,15 +4,19 @@
 #![no_std]
 
 // Halt on panic
-use panic_halt as _; // panic handler
-
 use cortex_m_rt::entry;
+// use panic_halt as _; // panic handler - halt
+use panic_rtt_target as _; // panic handler - rtt
 use stm32f4xx_hal::{self as hal, rcc::Config};
 
 use crate::hal::{pac, prelude::*};
+use rtt_target::{rprintln, rtt_init_print};
 
 #[entry]
 fn main() -> ! {
+    rtt_init_print!();
+
+    rprintln!("Hello, world!");
     if let (Some(dp), Some(cp)) = (
         pac::Peripherals::take(),
         cortex_m::peripheral::Peripherals::take(),
@@ -31,6 +35,7 @@ fn main() -> ! {
             // On for 1s, off for 1s.
             led.toggle();
             delay.delay_ms(500);
+            rprintln!("Toggle here!");
         }
     }
 
