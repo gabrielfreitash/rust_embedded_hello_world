@@ -21,8 +21,8 @@ fn main() -> ! {
         let mut rcc = dp.RCC.freeze(Config::hsi().sysclk(48.MHz()));
 
         // Set up the LED. On the Nucleo-446RE it's connected to pin PA5.
-        let gpioa = dp.GPIOA.split(&mut rcc);
-        let mut led = gpioa.pa5.into_push_pull_output();
+        let gpioc = dp.GPIOC.split(&mut rcc);
+        let mut led = gpioc.pc13.into_push_pull_output();
 
         // Create a delay abstraction based on SysTick
         let mut delay = cp.SYST.delay(&rcc.clocks);
@@ -30,7 +30,7 @@ fn main() -> ! {
         loop {
             // On for 1s, off for 1s.
             led.toggle();
-            delay.delay_ms(1000);
+            delay.delay_ms(500);
         }
     }
 
