@@ -2,7 +2,7 @@
 target = ["thumbv7em-none-eabihf"]
  
 [target.thumbv7em-none-eabihf]
-runner = "probe-rs run --chip STM32F401CC"
+runner = "probe-rs run --chip STM32F411CE"
 
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
 rustflags = [
